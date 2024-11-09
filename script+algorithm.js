@@ -571,6 +571,93 @@ function Priority() {
     };
 }
 
+function SRTF() {
+    let copy_process = sortArrivaltime(processes).slice();
+    let currentTime = 0;
+    let lastCompletionTime = 0;
+    result_SRTF = [];
+    timeline_SRTF = [];
+    efficiency_SRTF = {};
+
+    let remainingBurst = {};
+    let firstExecutionTime = {};
+    let completedProcesses = new Set();
+    let currentTimelineEntry = null;
+
+    copy_process.forEach(process => {
+        remainingBurst[process.name] = process.burstTime;
+        firstExecutionTime[process.name] = null;
+    });
+
+    while (completedProcesses.size < processes.length) {
+        let availableProcesses = copy_process.filter(
+            process => process.arrivalTime <= currentTime && !completedProcesses.has(process.name)
+        );
+
+        if (availableProcesses.length > 0) {
+            let currentProcess = availableProcesses.reduce((minProcess, process) => {
+                return remainingBurst[process.name] < remainingBurst[minProcess.name] ? process : minProcess;
+            });
+
+            let startTime = currentTime;
+
+            if (firstExecutionTime[currentProcess.name] === null) {
+                firstExecutionTime[currentProcess.name] = startTime;
+            }
+
+            // Execute process for 1 time unit
+            currentTime += 1;
+            remainingBurst[currentProcess.name] -= 1;
+
+            // If it's a new entry or a different process, finalize the previous entry and start a new one
+            if (!currentTimelineEntry || currentTimelineEntry.name !== currentProcess.name) {
+                if (currentTimelineEntry) {
+                    currentTimelineEntry.end = startTime;
+                    timeline_SRTF.push(currentTimelineEntry);
+                }
+                currentTimelineEntry = { name: currentProcess.name, start: startTime, end: null };
+            }
+
+            // Check if the process is completed
+            if (remainingBurst[currentProcess.name] === 0) {
+                let completionTime = currentTime;
+                let turnAroundTime = completionTime - currentProcess.arrivalTime;
+                let waitingTime = turnAroundTime - currentProcess.burstTime;
+                let responseTime = firstExecutionTime[currentProcess.name] - currentProcess.arrivalTime;
+
+                result_SRTF.push({
+                    name: currentProcess.name,
+                    arrivalTime: currentProcess.arrivalTime,
+                    burstTime: currentProcess.burstTime,
+                    completionTime: completionTime,
+                    turnAroundTime: turnAroundTime,
+                    waitingTime: waitingTime,
+                    responseTime: responseTime
+                });
+
+                completedProcesses.add(currentProcess.name);
+                lastCompletionTime = completionTime;
+
+                // Finalize the timeline entry for the completed process
+                currentTimelineEntry.end = currentTime;
+                timeline_SRTF.push(currentTimelineEntry);
+                currentTimelineEntry = null;
+            }
+        } else {
+            currentTime++;
+        }
+
+        currentTime += contextSwitch;
+    }
+
+    efficiency_SRTF = {
+        CPUutilization: CPUutilizationCal(lastCompletionTime),
+        Throughput: ThroughputCal(result_SRTF.length, lastCompletionTime),
+        avgTurnAroundTime: avgTurnAroundTime(result_SRTF),
+        avgWaitingTime: avgWaitingTime(result_SRTF),
+        avgResponseTime: avgResponseTime(result_SRTF)
+    };
+}
 
 
 

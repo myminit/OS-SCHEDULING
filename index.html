@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete" />
+        <link rel="stylesheet" href="style.css">
+        <script src="script+algorithm.js" defer></script>
+        <script src="output.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <title>Scheduling Algorithms</title>
+    </head>
+    <body>
+        <h1>Scheduling Algorithms</h1>
+        <h3>Algorithms</h3>
+        <form class="select-algorithm">
+            <label><input type="checkbox" name="fcfs" value="fcfs"> First-come, first-server</label>
+            <label><input type="checkbox" name="rr" value="rr"> Round-Robin</label>
+            <label><input type="checkbox" name="sjf" value="sjf"> Shortest-Job-First</label>
+            <label><input type="checkbox" name="srtf" value="srtf"> Shortest Remaining-Time-First</label>
+            <label><input type="checkbox" name="p" value="p"> Priority</label>
+            <label><input type="checkbox" name="hrrn" value="hrrn"> Highest Response Ratio Next</label>
+            <label><input type="checkbox" name="mqwf" value="mqwf"> Multilevel queue with feedback</label>
+        </form>
+        
+        <div class="time"> 
+            <label><input type="number" name="quantum-time" id="quantum-time" min="1" step="1" value="1"> Quantum time</label> 
+            <label><input type="number" name="switch" id="switch-time" min="0" step="1" value="0"> Context Switch Time</label> 
+        </div> 
+        
+        <div class="input-process">
+            <div class="head-input">
+                <input type="number" min="1" step="1" value="1">
+                <button type="button" class="random-btn" onclick="randomProcess()">Random Process</button>
+                <button type="button" class="add-btn" onclick="addProcess()">Add Process</button>
+                <button type="button" class="reset-btn" onclick="resetProcess()">Reset Process</button>
+            </div>
+            <table class="main-table"> 
+                <thead> 
+                    <tr> 
+                        <th class="process-id">Process ID</th> 
+                        <th class="arrival-time">Arrival Time</th> 
+                        <th class="burst-time" colspan="1">Burst Time</th> 
+                        <th class="priority">Priority</th> 
+                        <th class="delete-process"></th>
+                    </tr> 
+                </thead> 
+                <tbody id="process-table-body"> 
+                    <tr> 
+                        <td class="process-id" id="name">P1</td> 
+                        <td class="arrival-time" id="arrival"><input type="number" min="0" step="1" value="0"> </td> 
+                        <td class="burst-time" id="burst"><input type="number" min="1" step="1" value="1"> </td> 
+                        <td class="priority" id="priority"><input type="number" min="1" step="1" value="1"></td> 
+                        <td class="delete-process"></td>
+                    </tr> 
+                </tbody> 
+            </table> 
+            <button type="button" class="calculate-btn" onclick="calculate()">Calculate</button>
+        </div>
+
+    <div id="charts">
+        <div id="ganttCharts">
+            <!-- <h3>Gantt Charts</h3> -->
+        </div>
+        <div id="comparisonSection" style="visibility: hidden">
+            <h5 class="comparison-title">Comparison Graph</h5>
+            <div class="comparison-container">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

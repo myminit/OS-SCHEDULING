@@ -1,0 +1,281 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 3em;
+    color: #ffffff;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    color: #bcbcbc;
+    font-weight: normal;
+    margin: 10px 0;
+}
+
+/* เลือก Algorithm */
+.select-algorithm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.select-algorithm label {
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    background-color: #990F02;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.select-algorithm label:hover {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+/* ส่วน Quantum Time */
+.time {
+    margin-bottom: 20px;
+}
+
+.time label {
+    font-size: 1em;
+    margin-right: 10px;
+}
+
+.time input,
+.random input{
+    padding: 5px;
+    width: 60px;
+}
+
+/* ตาราง */
+.main-table{
+    border-collapse: collapse;
+}
+
+.main-table thead,
+.main-table tbody {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.main-table tbody{
+    display: block;
+    width: 100%;
+    max-height: 450px;
+    overflow-y: auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+tbody td{
+    width: 200px;
+}
+
+.process-id ,
+.arrival-time ,
+.burst-time ,
+.priority {
+    width: 148px;
+}
+
+.arrival-time input,
+.burst-time input,
+.priority input{
+    width: 100px;
+}
+
+.main-table th,
+.main-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.main-table th {
+    background-color: transparent;
+    color: #000000;
+    border: none;
+}
+
+.main-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.delete-process{
+    width: 30px;
+}
+
+/* ปุ่ม */
+button.add-btn,
+button.reset-btn,
+button.random-btn,
+button.random-btn,
+button.calculate-btn {
+    background-color: #000000;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+button.add-btn:hover,
+button.reset-btn:hover,
+button.random-btn:hover,
+button.random-btn:hover,
+button.calculate-btn:hover {
+    background-color: #990F02;
+}
+
+/* ไอคอน Delete */
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+.delete-process .material-symbols-outlined {
+    color: #990F02;
+    font-size: 24px;
+}
+
+.delete-process .material-symbols-outlined:hover {
+    color: #000000;
+    cursor: pointer;
+}
+
+/* Input Process */
+.input-process {
+    width: 100%;
+    max-width: 700px;
+    padding: 20px;
+    color: #000000;
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.head-input{
+    margin-bottom: 15px;
+}
+
+/*------------------------------------------------------------------------------ */
+
+#ganttCharts {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+.ganttChart {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.ganttChart h5 {
+    font-size: 1.2em;
+    margin: 0 0 20px 0;
+    color: #000000;
+}
+
+/* Timeline and Tasks */
+.timeline {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    padding-bottom: 25px;
+}
+
+.ganttTask {
+    background-color: #990F02;
+    color: #fff;
+    text-align: center;
+    padding: 10px 5px;
+    position: relative;
+    min-width: 50px;
+    font-size: 0.9em;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+/* Time Markers */
+.timeMarker {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 12px;
+    color: #000000;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.end-time {
+    position: absolute;
+    right: 0;
+    bottom: -25px;
+    font-size: 12px;
+    color: #000000;
+    transform: translateX(50%);
+    white-space: nowrap;
+}
+
+/* Comparison Graph Section */
+#comparisonSection {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.comparison-title {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.comparison-container {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
